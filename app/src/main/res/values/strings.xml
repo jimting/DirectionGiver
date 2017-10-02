@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Direction Giver 尋路</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_maps">地圖導航</string>
+    <string name="title_activity_shake">附近景點抓取測試</string>
+    <string name="see_shop_info">查看附近商家資訊</string>
+</resources>

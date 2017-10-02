@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/mapmode"
+            android:icon="@android:drawable/ic_menu_mapmode"
+            android:title="開啟地圖模式" />
+        <item
+            android:id="@+id/history"
+            android:icon="@android:drawable/ic_menu_recent_history"
+            android:title="去過哪兒？" />
+        <item
+            android:id="@+id/set"
+            android:icon="@android:drawable/ic_menu_preferences"
+            android:title="設定" />
+        <item
+            android:id="@+id/aboutus"
+            android:icon="@android:drawable/stat_notify_chat"
+            android:title="關於我們" />
+    </group>
+
+    <item android:title="帳戶管理">
+        <menu>
+            <item
+                android:id="@+id/share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="分享" />
+        </menu>
+    </item>
+
+</menu>

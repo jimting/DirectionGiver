@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\e9b5a4a2e235f49ddbe311ac0f5bdf91eb86b01d\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="a30aea7df545072ad3c06f56b2efc13e67222140">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_3ab54cdc639ba99de4f217cc98ae098f09bcbf30\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\c4a6c03b441d3cbe95a637530facc1180111e2a9\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="9dae58326f6f6a515022468cce56dd04ec3b9fdb">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_555f0b72a8628448a637adff1ea772d085865dd6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\3220255f66231d4f3b4ad4f1157dae47c799eaf8\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="3daa7a9c9009fd386872a84c177a76979bdcafd6">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_444576eef170281cd39938924780fd59e44d77a5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\9af0a05d58bbc0aa35c8ce9492f9e8b98fa3e4b8\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="00d358528c5a8731a6e19bca910cbb3fd755ee31">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_4411e480ec83703ba50854d03785046f80df97cc\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\52d96b30435ae6c7cd4f42ccb74191ddaa35bf68\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="67eb33110dbacb46a48175b08ae0c96761d2c17d">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_0fb9c17468968a22726081b253f78fbbfae3cabe\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.gradle\caches\modules-2\files-2.1\com.github.bumptech.glide\glide\3.7.0\9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4\glide-3.7.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\glide-3.7.0_02aa83411a09293e175bbca8dbb925574fc220e0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\b180f4a84e1b05a8eff456a872961e5f0690546b\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="16afe57c1d7f8165d107c7806ce7b0c71de87159">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_ae95b5db933c1045402d78a0072f0837ff14f722\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\0d0917b45f17366963c0723e4e13dd8fc2dab9f7\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="055eed08c9cff50cac0db69c74c4d9ff7aef3d84">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_a7b8c468ad4d7b5da94e4b27ddb8618f19ffe4b8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\2fed96365086895c943fafdcc6920bf9f367c29c\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="ca851be26ff89f5b32cc222cee98139fb3fac830">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_101dab74c51b6eba16e1b10275f64309ca70be83\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\be26295db45a3bdaab3dc065f13263a30c9e080d\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="cb454b52545859ed2f24a6c01366805b0fa04b22">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_95a13f32c28f42eca82044723eccc5808d617735\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\2b8469c2cd7b975b3337b7f2b948657f2515ab41\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="152de8da301561dcb0946471697a420d8f7a68c5">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_7f60178305c977d2880efd246e510ab6b81e4046\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\ce82b10801c7e7bb79298db0397d33816f3d0fb6\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="c61641e333fa88da21758bab8cc28ee16604b05f">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_2524f0baa175e270121faae7e184d6f6c874234d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\ec9e17d5a81b141ece1ef5a3e3009b0d308d980b\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="ec9104b53aee77dfcfd2fe1c4add23ff7c4df55f">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_e691eb6b0fc35549bd5f4de3ed38cfc3dc81ef00\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\fe59875464933e6237dfa4224c914b59604e6ab2\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="b4671be3d1288bf4e5f527cd33e42909fbe4ecc6">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_80e55d39df0c6f7df13624bdeacc554712b1ca2a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\8d6e5cf269e0f450cc1d363d0579505da90fe1fc\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="74ac7cbcf0de4a88e59612dc3a9e3f9e71acb4ca">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_3d5aaf4db3f706bf6de5bacb35dc8c84d24a8137\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\ae49f86ed68646032f9353bf22e96fc2d0411068\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="734e80dffea7bd76c18ae256822a124c30d85850">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_7a2985ad4d3b3e5ab989a5497d911c3fc22dddf3\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.2.0\support-annotations-25.2.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="4a5a82a027706397fff621b22fd6fa796e91d7c5">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.2.0_0ee215d9334e511605e48adebe9d51b369e8d712\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\f12c240577614eba2483c4d36061bd6a381e138b\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="20a3c4e355150c15c13dd58045d43ad0c717d916">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_0f6ae8e5fe697e5698198be164b389171c76dc03\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\a9763f2ab2bb397eb31ec27a5322da794b64fd26\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="5f47ede9561595584dca71104baa0fecb36dda87">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_af860e351c2836748ca05d631f3e7e5c3ec15387\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\7422cd52b280def4cc388e912491d9bb80592466\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="702d339bc0a81d21354cd7e2cf2b67225fa4a16c">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_a3bc628e83f4043e2277787092702e651b9c6436\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\47a4b802a9d96b2a61d9165b82f0cc68dab59d98\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="9f6d236bac26d02b410e4ee186ba517ace5ee661">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_79935d54c73393528b53fc5cb42f4b28c9994e38\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\e938fd15f2e247be2e48c74b1d1c2c2199f38a3c\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="ee5304fd374e0b4ebf6b42d4037fbfb2c5336511">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_cf41506a52e8af51745d1d4073899f87d2982e8f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\6b79d3bd82438ca02ac53678d4eba55f17145bd4\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="b327fbe2fad414bc38cf0ce8f7efe1a38f572837">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_462c2533d4b8bb9dfb93deca3a18a5ef778244dc\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\0512a424f10de55808bcf9a848cae6cdc8930f76\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="363a20f1d25336e827dd24020f2ecdc42d62638f">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_ddd3863a808ad190590bfeb5995c7a9122a1756e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\91c4649f171227e12121b84f53eb6bdabfca95be\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="6b6f292b8b951dcf2ecf2b20853e3eabc7d65c48">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_172dff709992cb48918822cfb602aa038c439340\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\cd3bf07ab3de7f83e958c090ece8dd03dfbb7250\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="a7a04d6b7c01e569a285fa627cf64f5b05295906">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_7a86f987da4f4d1fda128be0184285b292352a3f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\141241922a3849afcd2626180b774e6fd0243b01\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="fa0446a14ed5dd3725047d6399ffea771a564b30">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_133d7c800cb81def73bfbfe669f5197e7fcb2612\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\36b2036aa24d2034fe49ac36b7f4496b0034521a\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="8fe8a8f77d651982ce5e18f6187dc4daf914ac57">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_6dd7fa7012b67b7ca9215c5606f19080877c0598\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\3c4d96ad90aebccb22268559c4bf0723b1890504\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="c81df6bd515398ebe45089b0b16c55752a131f6a">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_abca72f62a442ed9b0399117c0b8aafc4f8cfd1e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\31c6830125011681487c777c2676f6a1c038849b\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="289cad663c288ce965463cb9ece8b35cc7de0fac">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_77cabc60ed0dc50e0a4df5b042d781bc4bdb8fdb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\c6510bc3ede00a968d24c112a84413169156f547\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="0b53c4b90654b67ee3892a8e2e7b819c083ab7a6">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_c6fb86deafa8a1daf680521ddd2bf393519fbe36\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\2f43d9cf349bf9a4e76a3f4012e771f7802651dc\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="0b8e087da59c0b062c33f49a335e59f907086da2">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_0333c2618c5ed4e80565fb02f11ddb658cc00d55\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\b68559260d460119b1446b04ade62107cbf2323e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="2d3035050a075484cbf2e33f1ce1f779bae4d451">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_48327731df8870a039a3cdaa0d59e065a580b971\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\7e4404dde558947b3b82a2386cd8ffc349dffc5c\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="7fd91ec2730fdaa82906aad32a3f3d3e574bae56">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_8ac2d8776def39e2f687ec499f8bd8688087beb2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\7336809c971de828beac64237b35ad46c2b6241f\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="266570862e5792ef3c51143a8b8593cf54fac68d">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_902348f807818f87a21dbe45a5fcefdde857b454\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\cb2ac75fc5d1a5923e701b7fc3ddf33f358edd78\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="85299bf1924dde0200109a58033c5ef84ecb6991">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_0981e2e70e53c0c1725f14572b9d088ab7a00deb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\AppData\Local\Android\sdk\extras\m2repository\com\android\support\constraint\constraint-layout-solver\1.0.2\constraint-layout-solver-1.0.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="b9cd8fc6bd15cb915735d34535db30ece0c44603">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\constraint-layout-solver-1.0.2_21beb9f1bcbcb800cb1cc18be92fe6bd01c30036\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\f8e114f10e6f44927cbdd02b9ff3f0c91f32d2a2\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="fbb3885c40e431cd2b0dc69c0cab2bf6d5da7b43">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_e01122615b21bbddeaf9fbaecd6fa4152a8075ff\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\63135e8928958b9f2fd1b7d8eec304caaf816a11\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="15e59454416c6341bd3ed2533b585cd340682dd1">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_d9e5c787ec8774ce852500c2dfc464d0140608bf\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\8dd066c8b812d47d3c31ddea0be1b92be9bdb1e3\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="a972970c8beddb69c198f61f3fc55f0606a7dfe3">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_0b7383d25ee2ad86f787e78e738c2b4970f8d232\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\libs\jsoup-1.9.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="28e5375920a4f6e73123e45ab6ad3b8bc93b0869">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\2\jsoup-1.9.2_cd5e526465f48e1c61a9e7ff1297b0d6cbbe724e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\9f983e54ad9a50b2908737d543bfbd7c3cf8cccc\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="50e35ae101a679c4c8ef3dda075b1df9d5d947d9">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_681eade0adbb8ef84ea1bf54ea54b499b312c5c6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\f6bdf988fd7dd0d78b4694f7e257f0b280dd7133\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="7e92aadd0697922316d1395c1887a23aebec640a">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_1a28a95fa67dfb03e733591431150b9740f4f1ba\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\66bdd0e4412d3500b52aea338847802e14485bd8\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="e9b2cfdfd59b03643f1e240668275378b96615a8">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_b854a8761ef95603207feed74acae2e8b15ec593\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\4a51ff0ebe589db42fda5e18ad600aa18ad069cf\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="f2d240dd085626f03f759c41d628a0c8b63e491f">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_ec4e91c1cd47068932028ed32099d1cca1c01abd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\1785df4958c0d1c7a0de477637f997dffc30bd23\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="e56f31b23ddb067f95f01255295167db7c798612">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_2309296e0fd01f335cc556ab9c0ab4ff6f4c4e8b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\e3f32820313201bf0ddbe8cc28bd04e2bef936ef\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_b867669f8928bb5a4cc9d604d2eb65680f7520a2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\44ad29316d3bce980d9ba44096209225ba9914a2\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="679251204de40ace98776a6f4e3a649c27e3d89f">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_2728d06d3ac9d3180a955e4c2c5c40e80aafae34\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\45306ed5322fe0c620dfc52b4012fe335ccdb9a8\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="190a642ba16d1421296a4d794606279b80039c59">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_7720b221412262d3de97b4603c97f9ce55c99b24\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\4d349e3eca9e85c0af3065e5a490bef63897ab2e\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="bf2e1838e4428616c1aa26edf43de72b5b99bf84">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_313ee680dbf73ffeb6f4f48aadc33bc88dd4275a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\5841360dc6ba8c2454d01ade624c63b0f9fe72da\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="04bbbddf868aa02dd33f9e90d8f5d908c360f638">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_86ce5bef1152ff3fcd62ba9075bdb933b55bdd67\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\c787996f288aa6cac091911a37927224a6753650\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="9ff04cc3470178a44512624036751a803418c2ca">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_e54a4b5796e7eae22dd4c636279bde8b5ec944be\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\0f0dc40c34c8bdd1d6c2792bb6c9130936c534c3\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="5ffe8867f51cfc726e9fb21db1e5b6962ebf25a0">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_fae08629d2c923f292aefa520f8d5a911e54a844\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\9cdb15ecc1d8dc8524c03b9961286b886f0ca108\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="810f41e5b7fd99f196ebeabe865ba2c54e7e76dc">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_8a796e3737328ee44c68dd15bef988b149f2ab58\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\6b79d3bd82438ca02ac53678d4eba55f17145bd4\output\jars\libs\internal_impl-24.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="b6763651ec29b4c95e7bbe63fc393ffcc8c4c2c5">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-24.0.0_fd2c741ebec4c62c235d41b85a58dd6f5c2540fa\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\4d19f80eb637d81b471d7515a37b29af53572463\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="4438b1a7848a7c571122ba618aa1304514aabee6">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_feb2f4f7cbce5b1d0c3713477966e18c8ee547af\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\d4cab6fa3553b81a370203a4ca7e2c8e79126683\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="cef85cfc7df40e29fbea58844dd4c1e7d0b15542">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_2ff36ff50fc91d2942a179d115e91f55c882c247\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\89fe6dcaccad0e46d3aebe70cea40ef37acdb93a\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="44ee06abb66da30f5855e6bf54574e64cdcd982a">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_ee3e10d2a9806f057c62e344dcdc4c3aa781f811\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\a58c16e0c400eae7dc8d6a0e51b09797c870aac0\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="122ec9237acd8a57d974b9d529987f1ee6ca5aea">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_f799e7143acc63db36b763ce006aac40527de229\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\3067b7713e7fcb2b1ee73002342c16c2aa0ba781\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="e3234cd25e23069abd48ecd2117bc0e8011bf45a">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_d6b9525bbf950fe822fff18ff7471fc1e37faae8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\1d77fb49139b8e451bcfe13c612e77a1e36aa5d1\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="d9f58e509a3ff5b601c11ab5ec588c96f9eb82b2">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_38de9f272b7a867491512c7e5cae36250f8a451f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\c730314f7dd093ace08e4d669fe403c4633aa4fb\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="a2537b11ae24b42172d34e2a613fc0b903c56158">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_3a389953ecc254b68d90dee0c82ae6f84586df2a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\009cd3b5fc94ed1a9cbca38fa8c46ff23e4fd656\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="3f8f779a22cbb4c4d0759467a4f1011bb5252970">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_4689e2996e6c6532d876d5f89d034a57b57f3e1c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\b6768f4bab21ba8b4e1ecc8b19f814429467b602\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="e820b7be8c035dd522da4bc822e8a76c8e27921a">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_5935f3e2def50f54d8e77c905eef32917c11082b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\d5776bcfaf787402d061f646c323d0fc57719281\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="a1ed98e01bd58976d80c062fd0ea2968a1ff68a1">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_4b452040373140ff4b1b40131eb9f6407f59c22f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\61d835683d2548fa3c9ccc2ce57068de047600c3\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="e51c2f662bb72419632af5192553c37e33890a99">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_be3f7f70e9050ad271d62095ef516c4be183abcd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\a0a49b350647820434b0d912be3250eeafaa525a\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="910c013c511f752c4bbe24c5f492f669f4a3ccc0">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_a44a29145c64a91a500338e4e8127618c23ccb3c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\24f6bc1415075539b066baa35742f4c326e6400b\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="ea6a989b83d19b1b461281e0475a6cd6514897f8">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_072cb98479cd8b7f3bf420d453834ab97b507f66\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\aa8e8da4bbbbd7f24644cb7b84321e5fb091244a\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="ee394a892dd21c03a528139c1e8d4e0e1264ac84">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_bf20c36b2dae4f4256c84ab86e3793125b1af0d4\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\lp123\.android\build-cache\a189ae5640c9759032a698413286de80867d9da5\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="25.0.1"
+        sha1="03df48d3713661d66ad024b1e406259a4c26fcac">
+        <dex dex="C:\Users\lp123\AndroidStudioProjects\DirectionGiver000\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_a4f80fa8dd2559e4d03e8e7d10814a56b24d7ff7\classes.dex" />
+    </item>
+
+</items>
