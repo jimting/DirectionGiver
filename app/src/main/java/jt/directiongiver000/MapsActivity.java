@@ -2,6 +2,7 @@ package jt.directiongiver000;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -18,8 +19,10 @@ import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -790,6 +793,35 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                                 mMap.addMarker(
                                         new MarkerOptions().position(shopPosition).title(nearByName[k]).icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurant)));
 
+                                mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                    @Override
+                                    public boolean onMarkerClick(Marker marker) {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+
+                                        builder.setTitle(marker.getTitle());
+
+                                        builder.setMessage("幹你娘");
+                                        builder.setView(R.layout.alertdialog);
+                                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                // User clicked OK button
+                                            }
+                                        });
+                                        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                // User cancelled the dialog
+                                            }
+                                        });
+
+                                        // Create the AlertDialog
+                                        AlertDialog dialog = builder.create();
+                                        dialog.show();
+
+
+                                        // Add the button
+                                        return false;
+                                    }
+                                });
                                 double jiaoDuTmp = nearByJiaoDu[k] - userJiaoDu;
                                 if(jiaoDuTmp < 0)
                                 {
