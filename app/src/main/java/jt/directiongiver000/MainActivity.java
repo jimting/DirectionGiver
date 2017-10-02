@@ -8,21 +8,17 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.MediaController;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -36,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageButton;
 
 
@@ -123,7 +118,7 @@ public class MainActivity extends RPGConversationActivity  {
                 InputStream stream = null;
                 StringBuilder output = new StringBuilder("");
                 try {
-                    url = stringParser(url);
+                    url = functionList.stringParser(url);
                     URL url2 = new URL(url);
                     URLConnection connection = url2.openConnection();
                     HttpURLConnection httpConnection = (HttpURLConnection) connection;

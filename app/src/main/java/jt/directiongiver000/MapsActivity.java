@@ -2,6 +2,7 @@ package jt.directiongiver000;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -10,7 +11,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.AsyncTask;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -43,11 +44,9 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.android.gms.vision.text.Text;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -60,7 +59,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -91,7 +89,6 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
     LatLng myPosition;
     static String[] polyline;
     private GoogleApiClient googleApiClient;
-    private static final int REQ_CODE = 9001;
     private String userEmail;
     private ArrayList<LatLng> bestLine = new ArrayList<>();
     private String history_ID;
@@ -185,7 +182,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                 String url2 = new String();
                 try
                 {
-                    url2 = stringParser(url);
+                    url2 = functionList.stringParser(url);
                 }
                 catch (IOException e)
                 {
@@ -214,38 +211,13 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
             mLocationManager.removeUpdates(LocationChange);
         }
     }
-    public String stringParser(String url) throws IOException
-    {
-        String url2 = new String();
-        for (int j = 0; j < url.length(); j++)
-        {
-            if (url.substring(j, j + 1).matches("[\\u4e00-\\u9fa5]+"))
-            {
-                try
-                {
-                    url2 = url2 + URLEncoder.encode(url.substring(j, j + 1),"UTF-8");
-                }
-                catch (UnsupportedEncodingException e)
-                {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-            else
-            {
-                url2 = url2 + url.substring(j, j + 1).toString();
-            }
-        }
-
-        return url2;
-    }
     //更新定位Listener
     public LocationListener LocationChange = new LocationListener() {
         public void onLocationChanged(Location mLocation) {
 
             //印出我的座標-經度緯度
             Log.d("TAG", "我的座標改變囉！ - 經度 : " + mLocation.getLongitude() + "  , 緯度 : " + mLocation.getLatitude());
-            userJiaoDu = GetJiaoDu(userX,userY,mLocation.getLongitude(),mLocation.getLatitude());
+            userJiaoDu = functionList.GetJiaoDu(userX,userY,mLocation.getLongitude(),mLocation.getLatitude());
             userX = mLocation.getLongitude();
             userY = mLocation.getLatitude();
             myLocation.remove();
@@ -316,7 +288,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                     StringBuilder output = new StringBuilder("");
                     InputStream stream;
                     try {
-                        url = stringParser(url);
+                        url = functionList.stringParser(url);
                         URL url2 = new URL(url);
                         URLConnection connection = url2.openConnection();
                         HttpURLConnection httpConnection = (HttpURLConnection) connection;
@@ -349,7 +321,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                 String url2 = new String();
                 try
                 {
-                    url2 = stringParser(url);
+                    url2 = functionList.stringParser(url);
                 }
                 catch (IOException e)
                 {
@@ -365,7 +337,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
     {
         System.out.println("進行距離比對");
         System.out.println(userX + "," + userY + " 到 " + roadLL.X + "," + roadLL.Y);
-        int distance = (int)GetDistance(userX,userY,roadLL.X,roadLL.Y);
+        int distance = (int)functionList.GetDistance(userX,userY,roadLL.X,roadLL.Y);
         System.out.println("還差：" + distance +"公尺");
         if(distance > 60)
             leftTime.setText("約" + distance/60 + "分");
@@ -613,7 +585,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                     StringBuilder output = new StringBuilder("");
                     InputStream stream;
                     try {
-                        url = stringParser(url);
+                        url = functionList.stringParser(url);
                         URL url2 = new URL(url);
                         URLConnection connection = url2.openConnection();
                         HttpURLConnection httpConnection = (HttpURLConnection) connection;
@@ -707,11 +679,13 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
         private String getOutputFromUrl(String url) {
 
             StringBuilder output = new StringBuilder("");
-            try {
+            try
+            {
                 InputStream stream = getHttpConnection(url);
                 BufferedReader builder = new BufferedReader(new InputStreamReader(stream));
                 output.append(builder.readLine());
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
             System.out.println(output.toString());
@@ -790,12 +764,43 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                                 mMap.addMarker(
                                         new MarkerOptions().position(shopPosition).title(nearByName[k]).icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurant)));
 
+                                //設定商家Button
+                                mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                    @Override
+                                    public boolean onMarkerClick(Marker marker) {
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+
+                                        builder.setTitle(marker.getTitle());
+
+                                        builder.setMessage("幹你娘");
+                                        builder.setView(R.layout.alertdialog);
+                                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                // User clicked OK button
+                                            }
+                                        });
+                                        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                // User cancelled the dialog
+                                            }
+                                        });
+
+                                        // Create the AlertDialog
+                                        AlertDialog dialog = builder.create();
+                                        dialog.show();
+
+
+                                        // Add the button
+                                        return false;
+                                    }
+                                });
+
                                 double jiaoDuTmp = nearByJiaoDu[k] - userJiaoDu;
                                 if(jiaoDuTmp < 0)
                                 {
                                     jiaoDuTmp = jiaoDuTmp + 360;
                                 }
-                                String jiaoDu = getNearByJiaoDu(jiaoDuTmp);
+                                String jiaoDu = functionList.getNearByJiaoDu(jiaoDuTmp);
                                 nearByShops.add(nearByName[k]);
                                 Speech("我找到一家店了！" + nearByName[k] + "，在您的" + jiaoDu);
                                 char_text.setText(nearByDescription[k]);
@@ -839,7 +844,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                 InputStream stream = null;
                 StringBuilder output = new StringBuilder("");
                 try {
-                    url = stringParser(url);
+                    url = functionList.stringParser(url);
                     URL url2 = new URL(url);
                     URLConnection connection = url2.openConnection();
                     HttpURLConnection httpConnection = (HttpURLConnection) connection;
@@ -985,7 +990,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                     });
                     Speech(text1);
                 } else if (status.equals("howManyTime")) {
-                    final int distance = (int)GetDistance(userX,userY,roadLatLng[roadLatLng.length-1].X,roadLatLng[roadLatLng.length-1].Y);
+                    final int distance = (int)functionList.GetDistance(userX,userY,roadLatLng[roadLatLng.length-1].X,roadLatLng[roadLatLng.length-1].Y);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -1039,22 +1044,6 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
             }
         });
         thread.start();
-    }
-    private static double rad(double d)
-    {
-        return d * Math.PI / 180.0;
-    }
-    public double GetDistance(double lat1, double lng1, double lat2, double lng2)
-    {
-        double EARTH_RADIUS = 6378137;
-        double radLat1 = rad(lat1);
-        double radLat2 = rad(lat2);
-        double a = radLat1 - radLat2;
-        double b = rad(lng1) - rad(lng2);
-        double s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2)+ Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
-        s = s * EARTH_RADIUS;
-        s = Math.round(s * 10000) / 10000;
-        return s;
     }
     private void addMyPosition(final LatLng position,final String name)
     {
@@ -1190,6 +1179,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
+
     private void checkDestination()
     {
         String Message;
@@ -1226,6 +1216,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
             e.printStackTrace();
         }
     }
+
     private void checkToilet()
     {
         String Message;
@@ -1262,50 +1253,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
             e.printStackTrace();
         }
     }
-    public static double GetJiaoDu(double lat1, double lng1, double lat2, double lng2)
-    {
-        double x1 = lng1;
-        double y1 = lat1;
-        double x2 = lng2;
-        double y2 = lat2;
-        double pi = Math.PI;
-        double w1 = y1 / 180 * pi;
-        double j1 = x1 / 180 * pi;
-        double w2 = y2 / 180 * pi;
-        double j2 = x2 / 180 * pi;
-        double ret;
-        if (j1 == j2)
-        {
-            if (w1 > w2) return 270;
-            else if (w1 < w2) return 90;
-            else return -1;
-        }
-        ret = 4 * Math.pow(Math.sin((w1 - w2) / 2), 2) - Math.pow(Math.sin((j1 - j2) / 2) * (Math.cos(w1) - Math.cos(w2)), 2);
-        ret = Math.sqrt(ret);
-        double temp = (Math.sin(Math.abs(j1 - j2) / 2) * (Math.cos(w1) + Math.cos(w2)));
-        ret = ret / temp;
-        ret = Math.atan(ret) / pi * 180;
-        if (j1 > j2)
-        {
-            if (w1 > w2) ret += 180;
-            else ret = 180 - ret;
-        }
-        else if (w1 > w2) ret = 360 - ret;
-        return ret;
-    }
 
-    public String getNearByJiaoDu(double JiaoDu)
-    {
-        if ((JiaoDu <= 10 ) || (JiaoDu > 350)) return "右邊";
-        if ((JiaoDu > 10) && (JiaoDu <= 80)) return "右前方";
-        if ((JiaoDu > 80) && (JiaoDu <= 100)) return "前面";
-        if ((JiaoDu > 100) && (JiaoDu <= 170)) return "左前方";
-        if ((JiaoDu > 170) && (JiaoDu <= 190)) return "左邊";
-        if ((JiaoDu > 190) && (JiaoDu <= 260)) return "左後方";
-        if ((JiaoDu > 260) && (JiaoDu <= 280)) return "後面";
-        if ((JiaoDu > 280) && (JiaoDu <= 350)) return "右後方";
-        return null;
-    }
     public void goToilet()
     {
         Thread thread = new Thread(new Runnable() {

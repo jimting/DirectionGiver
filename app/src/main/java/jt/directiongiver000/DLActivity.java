@@ -4,16 +4,9 @@ package jt.directiongiver000;
  * Created by lp123 on 2017/9/25.
  */
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,7 +14,7 @@ import java.io.IOException;
 
 public class DLActivity extends AppCompatActivity {
 
-    private boolean isSwitch = true;//true:进入SwitchFragment,false:进入OtherFragment
+    private boolean isSwitch = true;//true:進入SwitchFragment,false:進入OtherFragment
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +31,13 @@ public class DLActivity extends AppCompatActivity {
     }
 
     /**
-     * Fragment界面切换
+     * Fragment切換
      */
     private void switchFragment()
     {
         SwitchFragment fragment = null;
-        if(isSwitch){
+        if(isSwitch)
+        {
             fragment = new SwitchFragment();
             fragment.setJumpTool(this);
         }

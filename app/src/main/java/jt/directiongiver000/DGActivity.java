@@ -1,7 +1,5 @@
 package jt.directiongiver000;
 
-import android.*;
-import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
@@ -12,22 +10,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import pl.droidsonroids.gif.GifImageButton;
 
-public class DGActivity extends AppCompatActivity {
+public class DGActivity extends AppCompatActivity
+{
     protected boolean voice = true; //true是開 false是關,預設 = 開
     protected float speechRate = 1; //角色講話的語速，1為正常，0.5為慢，2為快
     protected float charactor = (float)0.5; //0.5=鹿憨，1=小鹿，2=瑞迪
@@ -38,13 +34,13 @@ public class DGActivity extends AppCompatActivity {
     //get current date time with Date()
     Date dateToday = new Date();
     private final int LOCATION_REQUEST_CODE = 2;
-    private final int AUDIO_REQUEST_CODE = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dg);
         askPermission(android.Manifest.permission.ACCESS_FINE_LOCATION,android.Manifest.permission.RECORD_AUDIO, LOCATION_REQUEST_CODE);
+        checkServerStatus();
     }
     @Override
     public void onBackPressed() {
@@ -243,32 +239,6 @@ public class DGActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-    public String stringParser(String url) throws IOException
-    {
-        String url2 = new String();
-        for (int j = 0; j < url.length(); j++)
-        {
-            if (url.substring(j, j + 1).matches("[\\u4e00-\\u9fa5]+"))
-            {
-                try
-                {
-                    url2 = url2 + URLEncoder.encode(url.substring(j, j + 1),"UTF-8");
-                }
-                catch (UnsupportedEncodingException e)
-                {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-            }
-            else
-            {
-                url2 = url2 + url.substring(j, j + 1).toString();
-            }
-        }
-
-        return url2;
-    }
-
 
     private void askPermission(String permission,String audioPermission,int requsetCode){
         if(ContextCompat.checkSelfPermission(this, permission)!= PackageManager.PERMISSION_GRANTED){
@@ -276,4 +246,8 @@ public class DGActivity extends AppCompatActivity {
         }
     }
 
+    private void checkServerStatus()
+    {
+
+    }
 }

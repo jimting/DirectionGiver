@@ -9,13 +9,9 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 /**
  * Created by lp123 on 2017/8/21.
@@ -70,4 +66,91 @@ public class functionList
                 System.out.println(result);
                 return tempToilet;
     }
+
+    public static double GetJiaoDu(double lat1, double lng1, double lat2, double lng2)
+    {
+        double x1 = lng1;
+        double y1 = lat1;
+        double x2 = lng2;
+        double y2 = lat2;
+        double pi = Math.PI;
+        double w1 = y1 / 180 * pi;
+        double j1 = x1 / 180 * pi;
+        double w2 = y2 / 180 * pi;
+        double j2 = x2 / 180 * pi;
+        double ret;
+        if (j1 == j2)
+        {
+            if (w1 > w2) return 270;
+            else if (w1 < w2) return 90;
+            else return -1;
+        }
+        ret = 4 * Math.pow(Math.sin((w1 - w2) / 2), 2) - Math.pow(Math.sin((j1 - j2) / 2) * (Math.cos(w1) - Math.cos(w2)), 2);
+        ret = Math.sqrt(ret);
+        double temp = (Math.sin(Math.abs(j1 - j2) / 2) * (Math.cos(w1) + Math.cos(w2)));
+        ret = ret / temp;
+        ret = Math.atan(ret) / pi * 180;
+        if (j1 > j2)
+        {
+            if (w1 > w2) ret += 180;
+            else ret = 180 - ret;
+        }
+        else if (w1 > w2) ret = 360 - ret;
+        return ret;
+    }
+
+    public static String getNearByJiaoDu(double JiaoDu)
+    {
+        if ((JiaoDu <= 10 ) || (JiaoDu > 350)) return "右邊";
+        if ((JiaoDu > 10) && (JiaoDu <= 80)) return "右前方";
+        if ((JiaoDu > 80) && (JiaoDu <= 100)) return "前面";
+        if ((JiaoDu > 100) && (JiaoDu <= 170)) return "左前方";
+        if ((JiaoDu > 170) && (JiaoDu <= 190)) return "左邊";
+        if ((JiaoDu > 190) && (JiaoDu <= 260)) return "左後方";
+        if ((JiaoDu > 260) && (JiaoDu <= 280)) return "後面";
+        if ((JiaoDu > 280) && (JiaoDu <= 350)) return "右後方";
+        return null;
+    }
+    public static String stringParser(String url) throws IOException
+    {
+        String url2 = new String();
+        for (int j = 0; j < url.length(); j++)
+        {
+            if (url.substring(j, j + 1).matches("[\\u4e00-\\u9fa5]+"))
+            {
+                try
+                {
+                    url2 = url2 + URLEncoder.encode(url.substring(j, j + 1),"UTF-8");
+                }
+                catch (UnsupportedEncodingException e)
+                {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            else
+            {
+                url2 = url2 + url.substring(j, j + 1).toString();
+            }
+        }
+
+        return url2;
+    }
+    public static double GetDistance(double lat1, double lng1, double lat2, double lng2)
+    {
+        double EARTH_RADIUS = 6378137;
+        double radLat1 = rad(lat1);
+        double radLat2 = rad(lat2);
+        double a = radLat1 - radLat2;
+        double b = rad(lng1) - rad(lng2);
+        double s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2)+ Math.cos(radLat1) * Math.cos(radLat2) * Math.pow(Math.sin(b / 2), 2)));
+        s = s * EARTH_RADIUS;
+        s = Math.round(s * 10000) / 10000;
+        return s;
+    }
+    private static double rad(double d)
+    {
+        return d * Math.PI / 180.0;
+    }
+
 }
