@@ -34,13 +34,18 @@ public class DGActivity extends AppCompatActivity
     //get current date time with Date()
     Date dateToday = new Date();
     private final int LOCATION_REQUEST_CODE = 2;
+    private boolean serverStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dg);
         askPermission(android.Manifest.permission.ACCESS_FINE_LOCATION,android.Manifest.permission.RECORD_AUDIO, LOCATION_REQUEST_CODE);
-        checkServerStatus();
+        serverStatus = functionList.checkServerStatus();
+        if(!serverStatus)
+        {
+
+        }
     }
     @Override
     public void onBackPressed() {
@@ -246,8 +251,5 @@ public class DGActivity extends AppCompatActivity
         }
     }
 
-    private void checkServerStatus()
-    {
 
-    }
 }

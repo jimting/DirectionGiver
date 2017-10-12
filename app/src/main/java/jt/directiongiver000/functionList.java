@@ -67,6 +67,38 @@ public class functionList
                 return tempToilet;
     }
 
+    public static ConvenienceStore[] getConvenienceStore(double userX,double userY) throws IOException {
+        String toiletUrl = "http://140.121.197.130:8100/NearByServlet/GetConServlet?longitude=" + userX + "&latitude=" + userY;
+        Connection con = Jsoup.connect(toiletUrl).timeout(10000);
+        Connection.Response resp = con.execute();
+        Document doc = null;
+        if (resp.statusCode() == 200) {
+            doc = con.get();
+        }
+        String result = doc.select("body").html().toString();
+
+        ConvenienceStore[] tempConvenienceStore = null;
+        try {
+            JSONArray jsonTotal = new JSONArray(result);
+            tempConvenienceStore = new ConvenienceStore[jsonTotal.length()];
+            if (jsonTotal.length() > 0)
+            {
+                for (int top = 0; top < jsonTotal.length(); top++)
+                {
+                    JSONObject selectConvenienceStore = jsonTotal.getJSONObject(top);
+                    String name = selectConvenienceStore.getString("NAME");
+                    LatLng position = new LatLng(selectConvenienceStore.getDouble("PY"), selectConvenienceStore.getDouble("PX"));
+                    String address = selectConvenienceStore.getString("ADDRESS");
+                    tempConvenienceStore[top] = new ConvenienceStore(name, position, address);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        System.out.println(result);
+        return tempConvenienceStore;
+    }
+
     public static double GetJiaoDu(double lat1, double lng1, double lat2, double lng2)
     {
         double x1 = lng1;
@@ -153,4 +185,26 @@ public class functionList
         return d * Math.PI / 180.0;
     }
 
+    public static boolean checkServerStatus(){
+        String result = null;
+        String weatherUrl = "http://140.121.197.130:8100/DG/Check";
+        Connection con = Jsoup.connect(weatherUrl).timeout(10000);
+        Connection.Response resp = null;
+        try
+        {
+            resp = con.execute();
+            Document doc = null;
+            if (resp.statusCode() == 200)
+            {
+                doc = con.get();
+            }
+            result = doc.select("body").html().toString();
+            System.out.println(result);
+            return true;
+        }
+        catch (IOException e)
+        {
+            return false;
+        }
+    }
 }

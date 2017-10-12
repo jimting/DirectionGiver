@@ -82,7 +82,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
     public static location[] roadLatLng;
     private int roadInfoTop = 1;
     private TextView roadInfoText;
-    private int navStatus = 0;
+    private int navStatus = -1;
     private ArrayList<String> nearByShops;
     private String[] nearByName;
     Polyline user_line;
@@ -213,7 +213,8 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
     }
     //更新定位Listener
     public LocationListener LocationChange = new LocationListener() {
-        public void onLocationChanged(Location mLocation) {
+        public void onLocationChanged(Location mLocation)
+        {
 
             //印出我的座標-經度緯度
             Log.d("TAG", "我的座標改變囉！ - 經度 : " + mLocation.getLongitude() + "  , 緯度 : " + mLocation.getLatitude());
@@ -231,7 +232,12 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
             System.out.println("User's LatLng : " + user_polyOnMap.getPoints());
             mMap.moveCamera(CameraUpdateFactory.newLatLng(myPosition));
             moveMap(myPosition);
-            renewRoadInfo();
+            if(navStatus == -1)
+            {
+                navStatus = 0;
+            }
+            else
+                renewRoadInfo();
         }
 
 
@@ -801,7 +807,8 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                                     jiaoDuTmp = jiaoDuTmp + 360;
                                 }
                                 String jiaoDu = functionList.getNearByJiaoDu(jiaoDuTmp);
-                                nearByShops.add(nearByName[k]);
+                                if(!nearByName[k].contains("便利商店"))
+                                    nearByShops.add(nearByName[k]);
                                 Speech("我找到一家店了！" + nearByName[k] + "，在您的" + jiaoDu);
                                 char_text.setText(nearByDescription[k]);
                             }
@@ -889,7 +896,8 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                     tokenTop++;
                 }
 
-                if (status.equals("weatherNothing")) {
+                if (status.equals("weatherNothing"))
+                {
                     String date = dateFormat.format(dateToday);
                     double[] position = getGPS();
                     Geocoder gc = new Geocoder(MapsActivity.this, Locale.TRADITIONAL_CHINESE); 	//地區:台灣
@@ -932,17 +940,25 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                         }
                     });
                     Speech(result);
-                } else if (status.equals("whereToGo")) {
-                    final String temp = "前往" + text1;
-                    Speech(temp);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            char_text.setText(temp);
-                        }
-                    });
-                    destination = text1;
-                    getDirection();
+                } else if (status.equals("whereToGo"))
+                {
+                    if(text1.equals("便利商店"))
+                    {
+                        goConvenienceStore();
+                    }
+                    else
+                    {
+                        final String temp = "前往" + text1;
+                        Speech(temp);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                char_text.setText(temp);
+                            }
+                        });
+                        destination = text1;
+                        getDirection();
+                    }
                 } else if (status.equals("weatherNotLocation")) {
                     double[] position = getGPS();
                     Geocoder gc = new Geocoder(MapsActivity.this, Locale.TRADITIONAL_CHINESE); 	//地區:台灣
@@ -1030,6 +1046,10 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                 {
                     goToilet();
                 }
+                else if(status.equals("ConvenienceStore"))
+                {
+                    goConvenienceStore();
+                }
                 else//聽不懂
                 {
                     final String result = text1;
@@ -1048,7 +1068,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
     private void addMyPosition(final LatLng position,final String name)
     {
         //先把先前的刪除
-        if(navStatus != 0)
+        if(navStatus > 0)
         {
             myLocation.remove();
         }
@@ -1190,24 +1210,63 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
             StringBuffer stringBuffer = new StringBuffer();
             while ((Message = bufferedReader.readLine()) != null) {
                 stringBuffer.append(Message);
-                char_text.setText("前往" + stringBuffer.toString());
-                String temp = "前往" + stringBuffer.toString();
-                destination = stringBuffer.toString();
-                String clean = "";
-                String file_name = "destination";
-                try {
-                    FileOutputStream fileOutputStream = openFileOutput(file_name, MODE_PRIVATE);
-                    fileOutputStream.write(clean.getBytes());
-                    fileOutputStream.close();
+                if(stringBuffer.toString().equals("便利商店"))
+                {
+                    String clean = "";
+                    String file_name = "destination";
+                    try {
+                        FileOutputStream fileOutputStream = openFileOutput(file_name, MODE_PRIVATE);
+                        fileOutputStream.write(clean.getBytes());
+                        fileOutputStream.close();
 
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    goConvenienceStore();
                 }
-                Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_SHORT).show();
-                Speech(temp);
-                getDirection();
+                else if(stringBuffer.toString().equals("廁所"))
+                {
+                    stringBuffer.append(Message);
+                    char_text.setText("看看附近有沒有廁所吧～");
+                    String temp = "尋找廁所中";
+                    String clean = "";
+                    String file_name = "toilet";
+                    try {
+                        FileOutputStream fileOutputStream = openFileOutput(file_name, MODE_PRIVATE);
+                        fileOutputStream.write(clean.getBytes());
+                        fileOutputStream.close();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_SHORT).show();
+                    Speech(temp);
+                    //現在要在map上新增廁所圖示
+                    goToilet();
+                }
+                else {
+                    char_text.setText("前往" + stringBuffer.toString());
+                    String temp = "前往" + stringBuffer.toString();
+                    destination = stringBuffer.toString();
+                    String clean = "";
+                    String file_name = "destination";
+                    try {
+                        FileOutputStream fileOutputStream = openFileOutput(file_name, MODE_PRIVATE);
+                        fileOutputStream.write(clean.getBytes());
+                        fileOutputStream.close();
+
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(getApplicationContext(), temp, Toast.LENGTH_SHORT).show();
+                    Speech(temp);
+                    getDirection();
+                }
             }
         }
      catch (FileNotFoundException e) {
@@ -1304,6 +1363,83 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                                                 .title(toiletName)
                                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_wc))
                                 );
+                            }
+                        });
+                    }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            char_text.setText("我找到這些廁所啦");
+                        }
+                    });
+                    Speech("我找到這些廁所啦");
+                }
+                else
+                {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            char_text.setText("附近沒有任何廁所QQ");
+                        }
+                    });
+                    Speech("附近沒有任何廁所QQ");
+                }
+            }
+        });
+        thread.start();
+    }
+    public void goConvenienceStore()
+    {
+        Thread thread = new Thread(new Runnable() {
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        char_text.setText("看看附近有沒有便利商店吧～");
+                    }
+                });
+                String temp = "尋找便利商店中";
+                String clean = "";
+                String file_name = "ConvenienceStore";
+                try {
+                    FileOutputStream fileOutputStream = openFileOutput(file_name, MODE_PRIVATE);
+                    fileOutputStream.write(clean.getBytes());
+                    fileOutputStream.close();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Speech(temp);
+                //現在要在map上新增便利商店圖示
+                ConvenienceStore[] convenienceStore = new ConvenienceStore[0];
+                try {
+                    convenienceStore = functionList.getConvenienceStore(userX, userY);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                final int total = convenienceStore.length;
+                if (total > 0)
+                {
+                    for (int top = 0; top < total; top++)
+                    {
+                        final String toiletName = convenienceStore[top].getName();
+                        final LatLng convenienceStorePosition = convenienceStore[top].getPosition();
+                        //*****廁所還有address和grade需要加上*****
+
+                        runOnUiThread(new Runnable()
+                        {
+                            @Override
+                            public void run()
+                            {
+                                System.out.println("建立第一個便利商店Mark:"+toiletName);
+                                mMap.addMarker(
+                                        new MarkerOptions()
+                                                .position(convenienceStorePosition)
+                                                .title(toiletName)
+                                                .icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurant))
+                                );
+                                nearByShops.add(toiletName);
                             }
                         });
                     }
