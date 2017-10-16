@@ -1,6 +1,7 @@
 package jt.directiongiver000;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -13,12 +14,14 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.MediaController;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -43,6 +46,7 @@ import pl.droidsonroids.gif.GifImageButton;
 public class MainActivity extends RPGConversationActivity  {
     EditText destination;
     Button toMapButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +93,29 @@ public class MainActivity extends RPGConversationActivity  {
         toMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+                builder.setTitle("＊＊＊＊＊＊＊商家資訊＊＊＊＊＊＊");
+
+
+                builder.setView(R.layout.alertdialog);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK button
+                    }
+                });
+                builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User cancelled the dialog
+                    }
+                });
+
+                // Create the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+
+                /*Intent intent = new Intent();
                 intent.setClass(MainActivity.this, MapsActivity.class);
                 String file_name = "destination";
                 String destinationString = destination.getText().toString();
@@ -104,7 +130,7 @@ public class MainActivity extends RPGConversationActivity  {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                startActivity(intent);
+                startActivity(intent);*/
             }
         });
 
