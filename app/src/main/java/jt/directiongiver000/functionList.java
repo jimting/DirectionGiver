@@ -1,5 +1,8 @@
 package jt.directiongiver000;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
+
 import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONArray;
@@ -89,7 +92,8 @@ public class functionList
                     String name = selectConvenienceStore.getString("NAME");
                     LatLng position = new LatLng(selectConvenienceStore.getDouble("PY"), selectConvenienceStore.getDouble("PX"));
                     String address = selectConvenienceStore.getString("ADDRESS");
-                    tempConvenienceStore[top] = new ConvenienceStore(name, position, address);
+                    String ID = selectConvenienceStore.getString("ID");
+                    tempConvenienceStore[top] = new ConvenienceStore(name, position, address,ID);
                 }
             }
         } catch (JSONException e) {
@@ -200,11 +204,14 @@ public class functionList
             }
             result = doc.select("body").html().toString();
             System.out.println(result);
+            if(result.equals("1"))
+                return true;
             return true;
         }
         catch (IOException e)
         {
-            return false;
+
         }
+        return false;
     }
 }

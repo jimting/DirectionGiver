@@ -1,11 +1,13 @@
 package jt.directiongiver000;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -34,18 +36,14 @@ public class DGActivity extends AppCompatActivity
     //get current date time with Date()
     Date dateToday = new Date();
     private final int LOCATION_REQUEST_CODE = 2;
-    private boolean serverStatus;
+    protected boolean serverStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dg);
         askPermission(android.Manifest.permission.ACCESS_FINE_LOCATION,android.Manifest.permission.RECORD_AUDIO, LOCATION_REQUEST_CODE);
-        serverStatus = functionList.checkServerStatus();
-        if(!serverStatus)
-        {
 
-        }
     }
     @Override
     public void onBackPressed() {
@@ -251,5 +249,42 @@ public class DGActivity extends AppCompatActivity
         }
     }
 
+    protected void checkServerStatus()
+    {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                serverStatus = functionList.checkServerStatus();
+            }
+        });
+        thread.start();
+        while(thread.isAlive())
+        {
+            //什麼都不做
+        }
+        System.out.println("伺服器目前狀況代碼 : "+ serverStatus);
+        serverError(serverStatus);
+    }
 
+    protected void serverError(boolean check)
+    {
+        if (!check)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(DGActivity.this);
+
+            builder.setTitle("伺服器狀況");
+
+            builder.setMessage("目前伺服器狀況出了點問題！請聯絡開發人員！感謝配合！");
+            builder.setView(R.layout.server_error);
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // User clicked OK button
+                    android.os.Process.killProcess(android.os.Process.myPid());
+                }
+            });
+            // Create the AlertDialog
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
+    }
 }

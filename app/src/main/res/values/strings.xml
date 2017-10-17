@@ -8,4 +8,10 @@
     <string name="title_activity_maps">地圖導航</string>
     <string name="title_activity_shake">附近景點抓取測試</string>
     <string name="see_shop_info">查看附近商家資訊</string>
+    <string name="shopID">%1$s</string>
+    <string name="shopName">%1$s</string>
+    <string name="kind">%1$s</string>
+    <string name="rating">%1$s</string>
+    <string name="address">%1$s</string>
+    <string name="description">%1$s</string>
 </resources>

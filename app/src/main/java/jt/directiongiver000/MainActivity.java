@@ -58,7 +58,6 @@ public class MainActivity extends RPGConversationActivity  {
         button = (GifImageButton) findViewById(R.id.charactor);
         toMapButton = (Button)findViewById(R.id.toMapButton);
 
-
         Toast toast = Toast.makeText(this, "哈囉！好久不見！", Toast.LENGTH_SHORT);
         toast.show();
 
@@ -67,10 +66,14 @@ public class MainActivity extends RPGConversationActivity  {
         //設定音量控制
         super.checkVoiceControl();
 
-        /*final MediaController mc = new MediaController(this);
-        mc.setMediaPlayer((GifDrawable) button.getDrawable());
-        mc.setAnchorView(button);*/
+        //確認伺服器狀況
+        super.checkServerStatus();
 
+        //如果伺服器狀況出問題，就跳出警語
+        //System.out.println("伺服器目前狀況代碼 : "+ serverStatus);
+        //super.serverError(serverStatus);
+
+        //設定人物點擊動作
         button.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -81,6 +84,7 @@ public class MainActivity extends RPGConversationActivity  {
             }
         });
 
+        //設定導航按鍵動作
         toMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,6 +107,7 @@ public class MainActivity extends RPGConversationActivity  {
             }
         });
 
+        //說話
         Speech("哈囉！好久不見！");
 
     }

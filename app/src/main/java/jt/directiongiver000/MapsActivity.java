@@ -21,6 +21,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.vision.text.Text;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -83,7 +85,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
     private int roadInfoTop = 1;
     private TextView roadInfoText;
     private int navStatus = -1;
-    private ArrayList<String> nearByShops;
+    private ArrayList<Stores> nearByShops;
     private String[] nearByName;
     Polyline user_line;
     LatLng myPosition;
@@ -669,9 +671,12 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
 
     public class nearByGetJSON extends AsyncTask<String, Void, String>
     {    //<doInBackground()傳入的參數, doInBackground() 執行過程中回傳給UI thread的資料, 傳回執行結果>
+        private String[] nearByID;
         private String[] nearByDescription;
         private String[] nearByAddress;
         private location[] nearByLocation;
+        private String[] nearByClass;
+        private String[] nearByRating;
         private double[] nearByJiaoDu;
         @Override
         protected String doInBackground(String... urls) {
@@ -737,10 +742,13 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+            nearByID = new String[jsonArr.length()];
             nearByName = new String[jsonArr.length()];
             nearByAddress = new String[jsonArr.length()];
             nearByDescription = new String[jsonArr.length()];
             nearByLocation = new location[jsonArr.length()];
+            nearByClass = new String[jsonArr.length()];
+            nearByRating = new String[jsonArr.length()];
             nearByJiaoDu = new double[jsonArr.length()];
 
             System.out.println(jsonArr.toString());
@@ -749,16 +757,20 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                 try
                 {
                     // JSONObject modFamily = jsonArr.getJSONObject(i);
+                    nearByID[i] = jsonArr.getJSONObject(i).getString("ID");
                     nearByName[i] = jsonArr.getJSONObject(i).getString("NAME");
                     nearByAddress[i] = jsonArr.getJSONObject(i).getString("ADDRESS");
                     nearByDescription[i] = jsonArr.getJSONObject(i).getString("DESCRIPTION");
                     nearByLocation[i] = new location(jsonArr.getJSONObject(i).getDouble("PX"),jsonArr.getJSONObject(i).getDouble("PY"));
+                    nearByClass[i] = jsonArr.getJSONObject(i).getString("CLASS");
+                    //nearByRating[i] =  jsonArr.getJSONObject(i).getString("RATING");
                     nearByJiaoDu[i] = jsonArr.getJSONObject(i).getDouble("jiaoDu");
 
                     //檢查是否有在地圖上了
                     System.out.println("開始檢查！");
+
                     //新增商家到地圖上，並朗讀～
-                    if(checkShops(nearByName[i]))
+                    if(checkShops(nearByName[i],nearByLocation[i]))
                     {
                         final int k = i;
                         final LatLng shopPosition = new LatLng(nearByLocation[i].Y, nearByLocation[i].X);
@@ -768,18 +780,27 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                             public void run()
                             {
                                 mMap.addMarker(
-                                        new MarkerOptions().position(shopPosition).title(nearByName[k]).icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurant)));
+                                        new MarkerOptions().position(shopPosition).title(nearByName[k]).snippet(nearByClass[k]).icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurant)));
 
                                 //設定商家Button
                                 mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                     @Override
-                                    public boolean onMarkerClick(Marker marker) {
+                                    public boolean onMarkerClick(Marker marker)
+                                    {
                                         AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+                                        String shopName = marker.getTitle();
+                                        View view = getShopView(nearByID[k],nearByName[k],nearByClass[k],"X",nearByAddress[k],nearByDescription[k]);
 
-                                        builder.setTitle(marker.getTitle());
+                                        for(Stores tmp : nearByShops)
+                                        {
+                                            if(tmp.getName().equals(shopName))
+                                            {
+                                                view = getShopView(tmp.getID(),tmp.getName(),tmp.getKind(),tmp.getRating(),tmp.getAddress(),tmp.getDescription());
+                                            }
+                                        }
+                                        //設定商家頁面，並呈現
+                                        builder.setView(view);
 
-                                        builder.setMessage("幹你娘");
-                                        builder.setView(R.layout.alertdialog);
                                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int id) {
                                                 // User clicked OK button
@@ -795,7 +816,6 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                                         AlertDialog dialog = builder.create();
                                         dialog.show();
 
-
                                         // Add the button
                                         return false;
                                     }
@@ -807,8 +827,8 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                                     jiaoDuTmp = jiaoDuTmp + 360;
                                 }
                                 String jiaoDu = functionList.getNearByJiaoDu(jiaoDuTmp);
-                                if(!nearByName[k].contains("便利商店"))
-                                    nearByShops.add(nearByName[k]);
+                                Stores tempStore = new Stores(nearByName[k],nearByLocation[k],nearByID[k],nearByAddress[k],nearByClass[k],nearByDescription[k],"X");
+                                nearByShops.add(tempStore);
                                 Speech("我找到一家店了！" + nearByName[k] + "，在您的" + jiaoDu);
                                 char_text.setText(nearByDescription[k]);
                             }
@@ -821,18 +841,21 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                 }
             }
         }
-        private boolean checkShops(String shopName)
+        private boolean checkShops(String shopName,location location)
         {
             if(nearByShops != null)
             {
                 System.out.println("發現地圖上已經有東西！");
-                for(String tmp : nearByShops)
+                for(Stores tmp : nearByShops)
                 {
-                    if(tmp.equals(shopName))
+                    if(tmp.getName().equals(shopName))
                     {
-                        System.out.println(shopName + "有出現過！不加！");
-                        //如果有在表內代表已出現過！
-                        return false;
+                        if(tmp.getLocation().toString().equals(location.toString()))
+                        {
+                            System.out.println(shopName + "有出現過！不加！");
+                            //如果有在表內代表已出現過！
+                            return false;
+                        }
                     }
                 }
             }
@@ -1423,8 +1446,11 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                 {
                     for (int top = 0; top < total; top++)
                     {
-                        final String toiletName = convenienceStore[top].getName();
+                        final String convenienceName = convenienceStore[top].getName();
                         final LatLng convenienceStorePosition = convenienceStore[top].getPosition();
+                        final String ID = convenienceStore[top].getID();
+                        final String address = convenienceStore[top].getAddress();
+
                         //*****廁所還有address和grade需要加上*****
 
                         runOnUiThread(new Runnable()
@@ -1432,14 +1458,16 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                             @Override
                             public void run()
                             {
-                                System.out.println("建立第一個便利商店Mark:"+toiletName);
+                                System.out.println("建立第一個便利商店Mark:"+convenienceName);
                                 mMap.addMarker(
                                         new MarkerOptions()
                                                 .position(convenienceStorePosition)
-                                                .title(toiletName)
+                                                .title(convenienceName)
                                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurant))
                                 );
-                                nearByShops.add(toiletName);
+                                location tmpLocation = new location(convenienceStorePosition.latitude,convenienceStorePosition.longitude);
+                                Stores tmpStores = new Stores(convenienceName,tmpLocation,ID,address,"便利商店","便利商店","X");
+                                nearByShops.add(tmpStores);
                             }
                         });
                     }
@@ -1464,5 +1492,36 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
             }
         });
         thread.start();
+    }
+    public View getShopView(String shopID,String shopName,String shopKind,String shopRating,String shopAddress,String shopDescription)
+    {
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.alertdialog, null);
+
+        //shopID
+        TextView ID = (TextView)view.findViewById(R.id.shopID);
+        ID.setText(shopID);
+
+        //shopName
+        TextView Name =  (TextView)view.findViewById(R.id.shopName);
+        Name.setText(shopName);
+
+        //kind
+        TextView kind = (TextView)view.findViewById(R.id.kind);
+        kind.setText(shopKind);
+
+        //rating
+        TextView rating = (TextView)view.findViewById(R.id.rating);
+        rating.setText(shopRating);
+
+        //address
+        TextView address = (TextView)view.findViewById(R.id.address);
+        address.setText(shopAddress);
+
+        //description
+        TextView description = (TextView)view.findViewById(R.id.description);
+        description.setText(shopDescription);
+
+        return view;
     }
 }

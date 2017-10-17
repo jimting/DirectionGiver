@@ -2,24 +2,90 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+        android:id="@+id/title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="請輸入文字：" />
+        android:textSize="30dp"
+        android:gravity="center"
+        android:text="＊＊＊商家資訊＊＊＊" />
 
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/textView1" >
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title"
+        android:stretchColumns="0,1">
 
-        <requestFocus />
-    </EditText>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <TextView
+                android:id="@+id/shopID"
+                android:layout_span="1"
+                android:gravity="center"
+                android:text="@string/shopID"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/shopName"
+                android:layout_span="1"
+                android:gravity="center"
+                android:text="@string/shopName"
+                android:textSize="20dp" />
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/kind"
+                android:gravity="center"
+                android:text="@string/kind"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/rating"
+                android:gravity="center"
+                android:text="@string/rating"
+                android:textSize="20dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_span="2"
+                android:padding="15dp"
+                android:text="@string/address"
+                android:textSize="20dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:padding="15dp"
+                android:text="@string/description"
+                android:textSize="20dp" />
+
+
+
+        </TableRow>
+
+
+    </TableLayout>
 </RelativeLayout>
