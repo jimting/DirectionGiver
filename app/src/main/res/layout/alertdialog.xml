@@ -64,7 +64,7 @@
             <TextView
                 android:id="@+id/textView6"
                 android:textSize="20dp"
-                android:paddingLeft="15dp"
+                android:padding="15dp"
                 android:layout_span="2"
                 android:text="地址：基隆市中正區海洋大學mac教室幹你娘機掰" />
 

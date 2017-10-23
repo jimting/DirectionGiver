@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:textColor="@color/black"
+        android:text="野生的ＢＢＯＸ社員!!!" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/lin"
+        android:layout_below="@+id/name"
+        android:layout_margin="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="你好啊旅行者!! \n想要聽聽bbox的故事嗎？ \n還是你要解任務呢？"
+        android:textColor="#000000"
+        android:id="@+id/textView1"
+        android:textSize="20sp"
+        android:padding="4dp"
+        android:layout_below="@+id/name"
+        android:layout_toRightOf="@+id/imageView1" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_below="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="看故事" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_below="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="解任務" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_below="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="打NPC！！" />
+
+
+</RelativeLayout>

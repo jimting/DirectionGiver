@@ -42,6 +42,8 @@ import java.util.Locale;
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageButton;
 
+import static java.sql.DriverManager.println;
+
 
 public class MainActivity extends RPGConversationActivity  {
     EditText destination;
@@ -90,29 +92,54 @@ public class MainActivity extends RPGConversationActivity  {
             }
         });
 
+
         toMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-
-                builder.setTitle("＊＊＊＊＊＊＊商家資訊＊＊＊＊＊＊");
-
-
-                builder.setView(R.layout.alertdialog);
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User clicked OK button
-                    }
-                });
-                builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
-                    }
-                });
+                View mView = getLayoutInflater().inflate(R.layout.npc_alertdialog, null);
+                Button story = (Button) mView.findViewById(R.id.button2);
+                Button mission = (Button) mView.findViewById(R.id.button3);
+                Button hit = (Button) mView.findViewById(R.id.button4);
+                builder.setView(mView);
 
                 // Create the AlertDialog
                 AlertDialog dialog = builder.create();
                 dialog.show();
+
+                story.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog.Builder build = new AlertDialog.Builder(MainActivity.this);
+                        View view = getLayoutInflater().inflate(R.layout.alertdialog_story, null);
+                        build.setView(view);
+                        build.setPositiveButton("知道了", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        });
+
+
+                        AlertDialog dialog = build.create();
+                        dialog.show();
+                    }
+                });
+
+                mission.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+
+                hit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
 
 
                 /*Intent intent = new Intent();
