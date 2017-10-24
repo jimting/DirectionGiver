@@ -114,10 +114,21 @@ public class MainActivity extends RPGConversationActivity  {
                         AlertDialog.Builder build = new AlertDialog.Builder(MainActivity.this);
                         View view = getLayoutInflater().inflate(R.layout.alertdialog_story, null);
                         build.setView(view);
-                        build.setPositiveButton("知道了", new DialogInterface.OnClickListener() {
+                        build.setPositiveButton("下一頁", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
 
+                                AlertDialog.Builder build = new AlertDialog.Builder(MainActivity.this);
+                                View view = getLayoutInflater().inflate(R.layout.alertdialog_story, null);
+                                build.setView(view);
+                                build.setPositiveButton("知道了", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    }
+                                });
+                                AlertDialog dialog = build.create();
+                                dialog.show();
                             }
                         });
 
