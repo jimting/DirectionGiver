@@ -1,5 +1,6 @@
 package jt.directiongiver000;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,6 +8,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import android.widget.Gallery;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,9 +38,12 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import pl.droidsonroids.gif.GifImageButton;
 
@@ -53,7 +59,10 @@ public class SetActivity extends DGActivity implements NavigationView.OnNavigati
     private GoogleApiClient googleApiClient;
     private static final int REQ_CODE = 9001;
     private Switch voiceButton;
-
+    private Button choose;
+    final private String[] kindofshop= new String[]{"便利商店","異國料理","火烤料理" ,"中式美食","夜市小吃","甜點冰品","伴手禮","地方特產","素食","其他"};
+    private boolean[] shop_userselect = new boolean[] {  true, true, true, true ,true, true, true, true, true, true };
+    private ListView lv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +80,135 @@ public class SetActivity extends DGActivity implements NavigationView.OnNavigati
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        choose = (Button) findViewById(R.id.choose);
+        String choice;
+        try {
+            FileInputStream fileInputStream = openFileInput("chooseTrue");
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            StringBuffer stringBuffer = new StringBuffer();
+            while ((choice = bufferedReader.readLine()) != null)
+            {
+                stringBuffer.append(choice);
+            }
+            String[] shops = stringBuffer.toString().split(",");
+            for (int i = 0; i < kindofshop.length; i++)
+            {
+                if(shops[i].equals("true") ){
+                    shop_userselect[i] = true;
+                }else{
+                    shop_userselect[i] = false;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+        choose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog builder = new AlertDialog.Builder(SetActivity.this)
+                        .setTitle("選擇你想知道的：")
+                        .setMultiChoiceItems(kindofshop,
+                                shop_userselect,
+                                new DialogInterface.OnMultiChoiceClickListener()
+                                {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog,
+                                                        int which, boolean isChecked)
+                                    {
+                                        // TODO Auto-generated method stub
+
+                                    }
+                                })
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener()
+                        {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+
+                                String s = "";
+                                String bool = "";
+
+                                // 扫描所有的列表项，如果当前列表项被选中，将列表项的文本追加到s变量中。
+                                for (int i = 0; i < kindofshop.length; i++)
+                                {
+
+                                    if (lv.getCheckedItemPositions().get(i))
+                                    {
+
+                                        s += lv.getAdapter().getItem(i) + " ";
+                                        shop_userselect[i] = true;
+
+                                    }
+                                    else{
+                                        shop_userselect[i] = false;
+                                    }
+                                    bool += String.valueOf(shop_userselect[i]) + ",";
+                                }
+
+
+                                String filename = "chooseTrue";
+
+                                try {
+                                    FileOutputStream fileOutputStream = openFileOutput(filename, MODE_PRIVATE);
+                                    fileOutputStream.write(bool.getBytes());
+                                    fileOutputStream.close();
+
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                                String file_name = "choose";
+
+                                try {
+                                    FileOutputStream fileOutputStream = openFileOutput(file_name, MODE_PRIVATE);
+                                    fileOutputStream.write(s.getBytes());
+                                    fileOutputStream.close();
+
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                                // 用户至少选择了一个列表项
+                                if (lv.getCheckedItemPositions().size() > 0)
+                                {
+                                    String[] a = bool.split(",");
+                                    new AlertDialog.Builder(SetActivity.this)
+                                            .setMessage(s + a[0]+a[1]+a[2]+a[3]+a[4]+a[5]+a[6]+a[7]+a[8]+a[9]).show();
+                                    System.out.println(lv.getCheckedItemPositions().size());
+
+
+
+                                }
+
+                                // 用户未选择任何列表项
+                                else if(lv.getCheckedItemPositions().size() <= 0 )
+                                {
+                                    new AlertDialog.Builder(SetActivity.this)
+                                            .setMessage("你沒有選擇").show();
+                                }
+                            }
+                        }).create();
+
+                //
+                lv = builder.getListView();
+                builder.show();
+
+            }
+            });
+
 
         Prof_section = (LinearLayout) findViewById(R.id.prof_section);
         SignOut = (Button) findViewById(R.id.bn_logout);
