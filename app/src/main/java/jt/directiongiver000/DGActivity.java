@@ -37,6 +37,9 @@ public class DGActivity extends AppCompatActivity
     Date dateToday = new Date();
     private final int LOCATION_REQUEST_CODE = 2;
     protected boolean serverStatus;
+    //使用者的商家過濾
+    public static boolean[] shopUserselect = new boolean[] {  true, true, true, true ,true, true, true, true, true, true };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +139,7 @@ public class DGActivity extends AppCompatActivity
     {
         String Message;
         try {
-            FileInputStream fileInputStream = openFileInput("hello_file");
+            FileInputStream fileInputStream = openFileInput("selectCharactor");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             StringBuffer stringBuffer = new StringBuffer();
@@ -182,7 +185,7 @@ public class DGActivity extends AppCompatActivity
     {
         String Message;
         try {
-            FileInputStream fileInputStream = openFileInput("hello_file");
+            FileInputStream fileInputStream = openFileInput("selectCharactor");
             InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             StringBuffer stringBuffer = new StringBuffer();
@@ -285,6 +288,34 @@ public class DGActivity extends AppCompatActivity
             // Create the AlertDialog
             AlertDialog dialog = builder.create();
             dialog.show();
+        }
+    }
+
+    protected void checkShopFilter()
+    {
+        String choice;
+        try {
+            FileInputStream fileInputStream = openFileInput("shopFilter");
+            InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            StringBuffer stringBuffer = new StringBuffer();
+            while ((choice = bufferedReader.readLine()) != null)
+            {
+                stringBuffer.append(choice);
+            }
+            String[] shops = stringBuffer.toString().split(",");
+            for (int i = 0; i < shopUserselect.length; i++)
+            {
+                if(shops[i].equals("true") ){
+                    shopUserselect[i] = true;
+                }else{
+                    shopUserselect[i] = false;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

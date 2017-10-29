@@ -182,6 +182,7 @@ public abstract class RPGConversationActivity extends DGActivity implements Navi
                             tts.setPitch(charactor);
                             tts.setSpeechRate(speechRate);
                         }
+                        tts.stop();
                         tts.speak(talk, TextToSpeech.QUEUE_ADD, null);
                     }
                 }

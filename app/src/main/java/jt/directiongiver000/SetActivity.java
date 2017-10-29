@@ -1,5 +1,7 @@
 package jt.directiongiver000;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,6 +20,7 @@ import android.widget.Gallery;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,9 +38,12 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import pl.droidsonroids.gif.GifImageButton;
 
@@ -54,6 +60,10 @@ public class SetActivity extends DGActivity implements NavigationView.OnNavigati
     private static final int REQ_CODE = 9001;
     private Switch voiceButton;
 
+    //提供使用者自行選擇商家過濾
+    private Button choose;
+    final private String[] kindOfShop= new String[]{"便利商店","異國料理","火烤料理" ,"中式美食","夜市小吃","甜點冰品","伴手禮","地方特產","素食","其他"};
+    private ListView shopList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +81,67 @@ public class SetActivity extends DGActivity implements NavigationView.OnNavigati
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //設定使用者自行選擇過濾商家的list
+        choose = (Button) findViewById(R.id.choose);
+
+        //讀檔，看使用者有沒有選擇過，若無選擇過則預設為全選
+        checkShopFilter();
+
+        //設定選擇的按鍵
+        choose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog builder = new AlertDialog.Builder(SetActivity.this)
+                        .setTitle("選擇你想知道的：")
+                        .setMultiChoiceItems(kindOfShop, shopUserselect,
+                                new DialogInterface.OnMultiChoiceClickListener()
+                                {
+                                    @Override
+                                    public void onClick(DialogInterface dialog,
+                                                        int which, boolean isChecked)
+                                    {
+                                        // TODO Auto-generated method stub
+                                    }
+                                })
+                        .setPositiveButton("確定", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which)
+                            {
+                                String s = "";
+                                String bool = "";
+                                // 扫描所有的列表项，如果当前列表项被选中，将列表项的文本追加到s变量中。
+                                for (int i = 0; i < kindOfShop.length; i++)
+                                {
+                                    if (shopList.getCheckedItemPositions().get(i))
+                                    {
+                                        s += shopList.getAdapter().getItem(i) + " ";
+                                        shopUserselect[i] = true;
+                                    }
+                                    else{
+                                        shopUserselect[i] = false;
+                                    }
+                                    bool += String.valueOf(shopUserselect[i]) + ",";
+                                }
+                                String filename = "shopFilter";
+                                try {
+                                    FileOutputStream fileOutputStream = openFileOutput(filename, MODE_PRIVATE);
+                                    fileOutputStream.write(bool.getBytes());
+                                    fileOutputStream.close();
+                                } catch (FileNotFoundException e) {
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).create();
+                shopList = builder.getListView();
+                builder.show();
+            }
+        });
+
+
 
         Prof_section = (LinearLayout) findViewById(R.id.prof_section);
         SignOut = (Button) findViewById(R.id.bn_logout);
@@ -183,7 +254,7 @@ public class SetActivity extends DGActivity implements NavigationView.OnNavigati
                 //將對應選到的縮圖的大圖放置於ImageSwitcher中
                 imageSwitcher.setImageResource(imagesId[position]);
                 String Message = String.valueOf(imagesId[position]);
-                String file_name = "hello_file";
+                String file_name = "selectCharactor";
 
                 try {
                     FileOutputStream fileOutputStream = openFileOutput(file_name, MODE_PRIVATE);

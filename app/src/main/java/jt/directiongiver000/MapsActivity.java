@@ -5,11 +5,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -23,6 +28,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -96,6 +103,9 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
     private String history_ID;
     private double userJiaoDu = 0;
     private TextView leftTime;
+    private ArrayList<NPC> npcOnMap = new ArrayList<>();
+    private MediaPlayer mediaPlayer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +114,9 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle("導航模式");
+
+        //載入使用者的商家過濾選擇
+        checkShopFilter();
 
         roadInfoText = (TextView)findViewById(R.id.listview);
         nearByShops = new ArrayList<>();
@@ -315,6 +328,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
         }
         getNearBy();
     }
+
     private void getNearBy()
     {
         final String inputToString = destination;
@@ -340,7 +354,9 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                 task.execute(new String[]{url2});
             }
         });
+        searchNPC();
     }
+
     private boolean distanceCheck(location roadLL)
     {
         System.out.println("進行距離比對");
@@ -736,6 +752,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
         {
 
             System.out.println("StartGettingJson");
+
             JSONArray jsonArr = null;
             try {
                 jsonArr = new JSONArray(jsonString);
@@ -769,8 +786,8 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                     //檢查是否有在地圖上了
                     System.out.println("開始檢查！");
 
-                    //新增商家到地圖上，並朗讀～
-                    if(checkShops(nearByName[i],nearByLocation[i]))
+                    //新增商家到地圖上，並朗讀～ 新增了店家的filter
+                    if(checkShops(nearByName[i],nearByLocation[i]) && functionList.shopFilter(nearByClass[i],shopUserselect))
                     {
                         final int k = i;
                         final LatLng shopPosition = new LatLng(nearByLocation[i].Y, nearByLocation[i].X);
@@ -780,42 +797,14 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                             public void run()
                             {
                                 mMap.addMarker(
-                                        new MarkerOptions().position(shopPosition).title(nearByName[k]).snippet(nearByClass[k]).icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurant)));
+                                        new MarkerOptions().position(shopPosition).title(nearByName[k]).snippet(nearByClass[k]).icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurant)).zIndex(0));
 
                                 //設定商家Button
                                 mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
                                     @Override
                                     public boolean onMarkerClick(Marker marker)
                                     {
-                                        AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
-                                        String shopName = marker.getTitle();
-                                        View view = getShopView(nearByID[k],nearByName[k],nearByClass[k],"X",nearByAddress[k],nearByDescription[k]);
-
-                                        for(Stores tmp : nearByShops)
-                                        {
-                                            if(tmp.getName().equals(shopName))
-                                            {
-                                                view = getShopView(tmp.getID(),tmp.getName(),tmp.getKind(),tmp.getRating(),tmp.getAddress(),tmp.getDescription());
-                                            }
-                                        }
-                                        //設定商家頁面，並呈現
-                                        builder.setView(view);
-
-                                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-                                                // User clicked OK button
-                                            }
-                                        });
-                                        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-                                                // User cancelled the dialog
-                                            }
-                                        });
-
-                                        // Create the AlertDialog
-                                        AlertDialog dialog = builder.create();
-                                        dialog.show();
-
+                                        setMarkerOnclickListener(marker);
                                         // Add the button
                                         return false;
                                     }
@@ -1106,6 +1095,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                                     .position(position)
                                     .title(name)
                                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.luhen_ico)));
+                    myLocation.setZIndex(3);
                 }
             });
         }
@@ -1119,6 +1109,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                                     .position(position)
                                     .title(name)
                                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.xiaolu_ico)));
+                    myLocation.setZIndex(3);
                 }
             });
         }
@@ -1132,6 +1123,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                                     .position(position)
                                     .title(name)
                                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.reindeer_ico)));
+                    myLocation.setZIndex(3);
                 }
             });
         }
@@ -1148,6 +1140,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                                     .position(position)
                                     .title(roadName)
                                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.next_road)));
+                    roadLocation.setZIndex(4);
                 }
             });
         }
@@ -1161,6 +1154,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                                     .position(position)
                                     .title(roadName)
                                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.untouch_road)));
+                    roadLocation.setZIndex(4);
                 }
             });
         }
@@ -1174,6 +1168,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                                     .position(position)
                                     .title(roadName)
                                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.destination_ico)));
+                    roadLocation.setZIndex(4);
                 }
             });
         }
@@ -1189,7 +1184,8 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
         return bestLineAll;
     }
     @Override
-    protected void onStart(){
+    protected void onStart()
+    {
         super.onStart();
 
         OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(googleApiClient);
@@ -1206,7 +1202,8 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
         }
     }
 
-    private void handleSignInResult(GoogleSignInResult result) {
+    private void handleSignInResult(GoogleSignInResult result)
+    {
         if(result.isSuccess()){
 
             GoogleSignInAccount account = result.getSignInAccount();
@@ -1217,7 +1214,8 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
         }
     }
 
-    private void goLogInScreen() {
+    private void goLogInScreen()
+    {
         Intent intent = new Intent(this, SetActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK| Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
@@ -1385,6 +1383,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                                                 .position(toiletPosition)
                                                 .title(toiletName)
                                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_wc))
+                                                .zIndex(2)
                                 );
                             }
                         });
@@ -1411,6 +1410,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
         });
         thread.start();
     }
+
     public void goConvenienceStore()
     {
         Thread thread = new Thread(new Runnable() {
@@ -1464,6 +1464,7 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                                                 .position(convenienceStorePosition)
                                                 .title(convenienceName)
                                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.restaurant))
+                                                .zIndex(1)
                                 );
                                 location tmpLocation = new location(convenienceStorePosition.latitude,convenienceStorePosition.longitude);
                                 Stores tmpStores = new Stores(convenienceName,tmpLocation,ID,address,"便利商店","便利商店","X");
@@ -1474,10 +1475,10 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            char_text.setText("我找到這些廁所啦");
+                            char_text.setText("我找到這些便利商店啦");
                         }
                     });
-                    Speech("我找到這些廁所啦");
+                    Speech("我找到這些便利商店啦");
                 }
                 else
                 {
@@ -1493,10 +1494,11 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
         });
         thread.start();
     }
+
     public View getShopView(String shopID,String shopName,String shopKind,String shopRating,String shopAddress,String shopDescription)
     {
         LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.alertdialog, null);
+        View view = inflater.inflate(R.layout.shop_info, null);
 
         //shopID
         TextView ID = (TextView)view.findViewById(R.id.shopID);
@@ -1523,5 +1525,335 @@ public class MapsActivity extends RPGConversationActivity implements OnMapReadyC
         description.setText(shopDescription);
 
         return view;
+    }
+
+
+    public void searchNPC() //尋找附近的NPC並放到地圖上
+    {
+        Thread thread = new Thread(new Runnable()
+        {
+            public void run()
+            {
+                //開始找NPC
+                NPC[] npc = new NPC[0];
+                try
+                {
+                    //拿到附近的NPC資訊了
+                    npc = functionList.getNPC(userX, userY);
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+                final int total = npc.length;
+                if (total > 0)
+                {
+                    for (int top = 0; top < total; top++)
+                    {
+                        //先比對是否有在地圖上出現過
+                        if(checkNPC(npc[top].getId()))
+                        {
+                            final String npcName = npc[top].getName();
+                            final LatLng npcPosition = npc[top].getPosition();
+
+                            //抓NPC圖片
+                            final Bitmap bm = npc[top].getPic();
+
+                            //要將原本的圖片轉成ico大小，先拿原本的長寬
+                            int oldWidth = bm.getWidth();
+                            int oldHeight = bm.getHeight();
+                            float newWidth = 128;
+                            float newHeight = (float)oldHeight * (newWidth/oldWidth);
+                            System.out.println("將原本的長寬 : " + oldHeight +"," + oldWidth +" 轉為 " + newHeight + "," + newWidth);
+                            Matrix matrix = new Matrix();
+                            matrix.postScale((float)newWidth/oldWidth, (float)newHeight/oldHeight);
+                            final Bitmap npcICO = Bitmap.createBitmap(bm, 0, 0, oldWidth,oldHeight, matrix, true);
+
+
+                            runOnUiThread(new Runnable()
+                            {
+                                @Override
+                                public void run()
+                                {
+
+                                    //抓到圖片之後直接設定marker 讚讚
+                                    Marker npc = mMap.addMarker(
+                                            new MarkerOptions()
+                                                    .position(npcPosition)
+                                                    .title(npcName)
+                                                    .icon(BitmapDescriptorFactory.fromBitmap(npcICO))
+                                    .zIndex(2));
+
+                                    //設定點擊NPC圖示就會資訊跳出來~
+                                    mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                                        @Override
+                                        public boolean onMarkerClick(Marker marker)
+                                        {
+                                            setMarkerOnclickListener(marker);
+                                            // Add the button
+                                            return false;
+                                        }
+                                    });
+
+                                    char_text.setText("發現野生的"+npcName);
+                                }
+                            });
+                            Speech("發現野生的"+npcName);
+                            npcOnMap.add(npc[top]);
+                        }
+                    }
+                }
+            }
+        });
+        thread.start();
+    }
+
+    private boolean checkNPC(String npcID)  //確認NPC是否有在地圖上出現過
+    {
+        if(npcOnMap != null)
+        {
+            System.out.println("發現地圖上已經有npc！");
+            for(NPC tmp : npcOnMap)
+            {
+                if(tmp.getId().equals(npcID))
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    //利用z-index來判斷marker身分
+    private void setMarkerOnclickListener(Marker marker)
+    {
+        System.out.println("判斷marker狀態 : "+(int)marker.getZIndex());
+        switch((int)marker.getZIndex())
+        {
+            case 0://商家
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+                String shopName = marker.getTitle();
+                View view = null;
+
+                for(Stores tmp : nearByShops)
+                {
+                    if(tmp.getName().equals(shopName))
+                    {
+                        view = getShopView(tmp.getID(),tmp.getName(),tmp.getKind(),tmp.getRating(),tmp.getAddress(),tmp.getDescription());
+                    }
+                }
+                //設定商家頁面，並呈現
+                builder.setView(view);
+
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // User clicked OK button
+                    }
+                });
+
+                // Create the AlertDialog
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                break;
+            }
+            case 1://廁所
+            {
+
+                break;
+            }
+            case 2://NPC
+            {
+                String npcName = marker.getTitle();
+                for(NPC tmp : npcOnMap)
+                {
+                    if(tmp.getName().equals(npcName))
+                    {
+                        final String mp3URL = tmp.getMp3URL();
+                        //播放NPC音檔囉
+                        Thread threadForMP3 = new Thread(new Runnable()
+                        {
+                            public void run()
+                            {
+                                try {
+                                    playAudio(mp3URL);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                        threadForMP3.start();
+
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(MapsActivity.this);
+                        final String nameStr = tmp.getName();
+                        final Bitmap picBitmap = tmp.getPic();
+                        final NPCStory[] storyNPCStory = tmp.getStory();
+
+                        View mView = getLayoutInflater().inflate(R.layout.npc_info, null);
+                        //設定大Name抬頭
+                        TextView name = (TextView) mView.findViewById(R.id.name);
+                        name.setText(nameStr);
+
+                        //設定大頭貼
+                        ImageView photo = (ImageView) mView.findViewById(R.id.npc_photo);
+                        photo.setImageBitmap(picBitmap);
+                        //設定intro文字
+                        TextView intro = (TextView) mView.findViewById(R.id.npc_intro);
+                        intro.setText(tmp.getIntro());
+                        Button story = (Button) mView.findViewById(R.id.story);
+                        Button task = (Button) mView.findViewById(R.id.task);
+                        Button cancel = (Button) mView.findViewById(R.id.cancel);
+
+                        builder.setView(mView);
+                        // Create the AlertDialog
+                        final AlertDialog dialog = builder.create();
+                        dialog.show();
+
+                        story.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                int count = 0;
+                                //設定每個分頁，最後一頁為知道了
+                                setStoryBoard(count,storyNPCStory.length,storyNPCStory,nameStr,picBitmap);
+                            }
+                        });
+
+                        task.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                            }
+                        });
+
+                        cancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                //按下取消對話建，就關閉視窗
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                }
+
+                break;
+            }
+            case 3://自己
+            {
+
+                break;
+            }
+            case 4://路線圖標
+            {
+
+                break;
+            }
+        }
+
+    }
+
+    //用來播放server抓下來的mp3檔
+    private void playAudio(String url) throws Exception
+    {
+        if(mediaPlayer!=null)
+        {
+            try
+            {
+                mediaPlayer.release();
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setDataSource(url);
+        mediaPlayer.prepare();
+        mediaPlayer.start();
+    }
+
+    private void setStoryBoard(int count,int max,NPCStory[] storyNPCStory,String nameStr,Bitmap picBitmap)
+    {
+        if(count != max-1)
+        {
+            AlertDialog.Builder build = new AlertDialog.Builder(MapsActivity.this);
+            //說故事囉
+            final String mp3URL = storyNPCStory[count].getMp3URL();
+            //播放NPC音檔囉
+            Thread threadForMP3 = new Thread(new Runnable()
+            {
+                public void run()
+                {try {
+                    playAudio(mp3URL);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }}
+            });
+            threadForMP3.start();
+            View view = getLayoutInflater().inflate(R.layout.npc_story, null);
+            TextView name = (TextView) view.findViewById(R.id.name);
+            name.setText(nameStr);
+            ImageView photo = (ImageView) view.findViewById(R.id.npc_photo);
+            photo.setImageBitmap(picBitmap);
+            TextView content = (TextView) view.findViewById(R.id.npc_story);
+            content.setText(storyNPCStory[count].getContent());
+            build.setView(view);
+
+            //下一頁要用的變數宣告
+            final int countNext = count+1;
+            final int maxNext = max;
+            final NPCStory[] storyNPCStoryNext = storyNPCStory;
+            final String nameStrNext = nameStr;
+            final Bitmap picBitmapNext = picBitmap;
+
+            build.setPositiveButton("下一頁", new DialogInterface.OnClickListener()
+            {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i)
+                {
+                    setStoryBoard(countNext,maxNext,storyNPCStoryNext,nameStrNext,picBitmapNext);
+                }
+            });
+            AlertDialog dialog = build.create();
+            dialog.show();
+        }
+        else
+        {
+            AlertDialog.Builder build = new AlertDialog.Builder(MapsActivity.this);
+            //說故事囉
+            final String mp3URL = storyNPCStory[count].getMp3URL();
+            //播放NPC音檔囉
+            Thread threadForMP3 = new Thread(new Runnable()
+            {
+                public void run()
+                {try {
+                    playAudio(mp3URL);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }}
+            });
+            threadForMP3.start();
+            View view = getLayoutInflater().inflate(R.layout.npc_story, null);
+            TextView name = (TextView) view.findViewById(R.id.name);
+            name.setText(nameStr);
+            ImageView photo = (ImageView) view.findViewById(R.id.npc_photo);
+            photo.setImageBitmap(picBitmap);
+            TextView content = (TextView) view.findViewById(R.id.npc_story);
+            content.setText(storyNPCStory[count].getContent());
+            build.setView(view);
+
+            build.setPositiveButton("結束對話", new DialogInterface.OnClickListener()
+            {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i)
+                {
+                    mediaPlayer.release();
+                }
+            });
+            AlertDialog dialog = build.create();
+            dialog.show();
+        }
+
     }
 }

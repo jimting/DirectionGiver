@@ -1,6 +1,9 @@
 package jt.directiongiver000;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.app.AlertDialog;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -12,8 +15,13 @@ import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLEncoder;
 
 /**
@@ -22,6 +30,44 @@ import java.net.URLEncoder;
 
 public class functionList
 {
+    public static boolean shopFilter(String shopClass, boolean[] userselect){
+            switch(shopClass)
+            {
+                case "便利商店":
+                    if(!userselect[0]) return false;
+                    System.out.println("刪除便利商店");
+                    break;
+                case "異國料理":
+                    if(!userselect[1]) return false;
+                    break;
+                case "火烤料理":
+                    if(!userselect[2]) return false;
+                    break;
+                case "中式美食":
+                    if(!userselect[3]) return false;
+                    break;
+                case "夜市小吃":
+                    if(!userselect[4]) return false;
+                    break;
+                case "甜點冰品":
+                    if(!userselect[5]) return false;
+                    break;
+                case "伴手禮":
+                    if(!userselect[6]) return false;
+                    break;
+                case "地方特產":
+                    if(!userselect[7]) return false;
+                    break;
+                case "素食":
+                    if(!userselect[8]) return false;
+                    break;
+                case "其他":
+                    if(!userselect[9]) return false;
+                    break;
+            }
+        return true;
+    }
+
     public static String getWeather(String location,String date) throws IOException {
         String result = null;
         String weatherUrl = "http://140.121.197.130:8100/DG/GetWeather?location="+java.net.URLEncoder.encode(location, "UTF-8") +"&date="+date;
@@ -68,6 +114,47 @@ public class functionList
                 }
                 System.out.println(result);
                 return tempToilet;
+    }
+
+    public static NPC[] getNPC(double userX,double userY) throws IOException {
+        String npcUrl = "http://140.121.197.130:8100/NearByServlet/NPCServlet?longitude=" + userX + "&latitude=" + userY;
+        Connection con = Jsoup.connect(npcUrl).timeout(10000);
+        Connection.Response resp = con.execute();
+        Document doc = null;
+        if (resp.statusCode() == 200)
+        {
+            doc = con.get();
+        }
+        String result = doc.select("body").html().toString();
+
+        NPC[] tempNPC = null;
+        try {
+            JSONArray jsonTotal = new JSONArray(result);
+            tempNPC = new NPC[jsonTotal.length()];
+            if (jsonTotal.length() > 0)
+            {
+                for (int top = 0; top < jsonTotal.length(); top++)
+                {
+                    JSONObject selectNPC = jsonTotal.getJSONObject(top);
+                    String id = selectNPC.getString("NPC_ID");
+                    String picURL = selectNPC.getString("NPC_PIC");
+                    String name = selectNPC.getString("NPC_NAME");
+                    LatLng position = new LatLng(selectNPC.getDouble("PY"), selectNPC.getDouble("PX"));
+                    String mp3URL = selectNPC.getString("VOICE");
+                    String intro = selectNPC.getString("NPC_INTRO");
+                    NPCStory[] story = getNPCStory(id,"1");
+
+                    //直接抓圖片存進去啦幹
+                    byte[] data = functionList.getPic(picURL);
+                    final Bitmap bm = BitmapFactory.decodeByteArray(data, 0, data.length);
+                    tempNPC[top] = new NPC(id,name,position,picURL,mp3URL,bm,intro,story);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        System.out.println(result);
+        return tempNPC;
     }
 
     public static ConvenienceStore[] getConvenienceStore(double userX,double userY) throws IOException {
@@ -214,4 +301,71 @@ public class functionList
         }
         return false;
     }
+
+    public static byte[] getPic(String urlpath)
+    {
+        try
+        {
+            InputStream inputstream;
+            URL url = null;
+            url = new URL(urlpath);
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            inputstream = conn.getInputStream();
+            ByteArrayOutputStream outputstream = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int len = -1;
+            while((len = inputstream.read(buffer)) != -1){
+                outputstream.write(buffer,0,len);
+            }
+            inputstream.close();
+            outputstream.close();
+            return outputstream.toByteArray();
+        }
+        catch (MalformedURLException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static NPCStory[] getNPCStory(String ID,String STATUS) throws IOException {
+        String npcUrl = "http://140.121.197.130:8100/NearByServlet/SpeechServlet?ID="+ID+"&STATUS="+STATUS;
+        Connection con = Jsoup.connect(npcUrl).timeout(10000);
+        System.out.println("連線 : "+ npcUrl);
+        Connection.Response resp = con.execute();
+        Document doc = null;
+        if (resp.statusCode() == 200)
+        {
+            doc = con.get();
+        }
+        String result = doc.select("body").html().toString();
+
+        NPCStory[] tempStory = null;
+        try {
+            JSONArray jsonTotal = new JSONArray(result);
+            tempStory = new NPCStory[jsonTotal.length()];
+            if (jsonTotal.length() > 0)
+            {
+                for (int top = 0; top < jsonTotal.length(); top++)
+                {
+                    JSONObject selectNPC = jsonTotal.getJSONObject(top);
+                    String id = selectNPC.getString("NPC_ID");
+                    String status = selectNPC.getString("STATUS");
+                    String mp3URL = selectNPC.getString("VOICE");
+                    String content = selectNPC.getString("CONTENT");
+                    tempStory[top] = new NPCStory(id,mp3URL,content,status);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        System.out.println(result);
+        return tempStory;
+    }
+
 }

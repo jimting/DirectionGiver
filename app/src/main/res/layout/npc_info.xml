@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:textColor="@color/black"
+        android:text="野生的BeatBox社員!!!" />
+
+    <ImageView
+        android:id="@+id/npc_photo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/lin"
+        android:layout_below="@+id/name"
+        android:layout_margin="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="你好啊旅行者!! \n想要聽聽bbox的故事嗎？ \n還是你要解任務呢？"
+        android:textColor="#000000"
+        android:id="@+id/npc_intro"
+        android:textSize="20sp"
+        android:padding="4dp"
+        android:layout_below="@+id/name"
+        android:layout_toRightOf="@+id/npc_photo" />
+
+    <Button
+        android:id="@+id/story"
+        android:layout_below="@+id/npc_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="看故事" />
+
+    <Button
+        android:id="@+id/task"
+        android:layout_below="@+id/story"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="解任務" />
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_below="@+id/task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="取消對話" />
+
+
+</RelativeLayout>
